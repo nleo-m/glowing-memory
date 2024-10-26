@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpPower = 5f;
+    [SerializeField] int health = 10;
     public bool isFacingRight = true;
     float xInput, yInput;
     bool isGrounded = true;
@@ -45,9 +46,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Fire1")) isShooting = true;
         else isShooting = false;
-
-        if (Input.GetButton("Fire2")) Time.timeScale = 0.5f;
-        else Time.timeScale = 1;
             
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
         animator.SetBool("isGrounded", isGrounded);
@@ -63,6 +61,8 @@ public class PlayerController : MonoBehaviour
         if (isGrounded == false && yInput < 0)
             rb.AddForce(transform.up * Mathf.Abs(yInput) * 5 * -1);
     }
+
+    void TakeDamage(float damage) { }
 
     void Flip()
     {

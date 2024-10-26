@@ -5,38 +5,32 @@ using UnityEngine.UI;
 
 public class FlashLightPower : MonoBehaviour
 {
-    //[SerializeField] Image bar;
-    //[SerializeField] Image outline;
-    [SerializeField] float drainTime = 75f;
+    [SerializeField] Image bar;
+    [SerializeField] Image outline;
+    [SerializeField] float drainTime = 10f;
     [SerializeField] float power;
     bool slowingDown = false;
 
+    private void Start()
+    {
+        power = 1;
+    }
+
     void Update()
     {
-        //if (!PlayerState.HasItem("Flashlight"))
-        //{
-        //    flashLightOutline.color = Color.gray;
-        //    flashLightBar.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    flashLightBar.gameObject.SetActive(true);
-        //    if (PlayerState.flashLightPower < 0.1)
-        //    {
-        //        flashLightBar.color = Color.red;
-        //    }
-        //    else
-        //    {
-        //        flashLightBar.color = Color.white;
-        //    }
-        //}
-
-
+        if (Input.GetButtonUp("Fire2") && power > 0)
+            slowingDown = !slowingDown;
+        
+        if (power <= 0 && slowingDown) slowingDown = false;
 
         if (slowingDown)
         {
-            //flashLightBar.fillAmount -= 1f / FLDrainTime * Time.deltaTime;
-            //Power = flashLightBar.fillAmount;
+            Time.timeScale = 0.5f;
+            power -= 1f / drainTime * Time.deltaTime;
+            bar.fillAmount = power;
+        } else
+        {
+            Time.timeScale = 1f;
         }
 
     }
