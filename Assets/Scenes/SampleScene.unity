@@ -3340,6 +3340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpPower: 7
+  health: 10
   isFacingRight: 1
 --- !u!70 &1477807819
 CapsuleCollider2D:
